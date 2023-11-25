@@ -32,9 +32,9 @@ def test_dark_theme_by_time_and_user_choice():
         if current_time >= time(hour=22) or current_time <= time(hour=6):
             is_dark_theme = True
         else:
-            is_dark_theme = None
+            is_dark_theme = False
     else:
-        is_dark_theme = None
+        is_dark_theme = False
     assert is_dark_theme is True
 
 
@@ -51,7 +51,7 @@ def test_find_suitable_user():
     ]
 
     # TODO найдите пользователя с именем "Olga"
-    suitable_users = None
+    suitable_users = []
     for user in users:
         if user["name"] == "Olga":
             suitable_users = user
@@ -78,16 +78,19 @@ def test_find_suitable_user():
 # >>> open_browser(browser_name="Chrome")
 # "Open Browser [Chrome]"
 
+
 def pretty_func_name(func_name, *args):
-    name = (func_name.__name__.title()).replace('_', ' ')
-    params = list(args)
-    return name + ' [' + ', '.join(params) + ']'
+    name = (func_name.__name__.title()).replace("_", " ")
+    params = " [" + ", ".join(list(args)) + "]"
+    return f"{name}{params}"
 
 
 def test_readable_function():
     open_browser(browser_name="Chrome")
     go_to_companyname_homepage(page_url="https://companyname.com")
-    find_registration_button_on_login_page(page_url="https://companyname.com/login", button_text="Register")
+    find_registration_button_on_login_page(
+        page_url="https://companyname.com/login", button_text="Register"
+    )
 
 
 def open_browser(browser_name):
@@ -101,10 +104,10 @@ def go_to_companyname_homepage(page_url):
 
 
 def find_registration_button_on_login_page(page_url, button_text):
-    actual_result = pretty_func_name(find_registration_button_on_login_page, page_url, button_text)
-    assert actual_result == "Find Registration Button On Login Page [https://companyname.com/login, Register]"
-
-
-
-
-
+    actual_result = pretty_func_name(
+        find_registration_button_on_login_page, page_url, button_text
+    )
+    assert (
+        actual_result
+        == "Find Registration Button On Login Page [https://companyname.com/login, Register]"
+    )
